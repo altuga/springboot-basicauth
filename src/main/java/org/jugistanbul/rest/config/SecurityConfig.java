@@ -16,13 +16,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
          .csrf().disable()
          .authorizeRequests().anyRequest().authenticated()
          .and()
-         .httpBasic();
+         .httpBasic();  // base64 is not secure
     }
  
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) 
             throws Exception 
     {
+        // base64 is not secure
+        // https://www.blitter.se/utils/basic-authentication-header-generator/
         auth.inMemoryAuthentication().withUser("admin").password("{noop}password").roles("USER");
     }
 }
